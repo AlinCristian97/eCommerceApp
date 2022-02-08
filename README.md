@@ -1,0 +1,1 @@
+﻿This is a .NET & Angular course meant to familiarize me with building an eCommerce app using these technologies

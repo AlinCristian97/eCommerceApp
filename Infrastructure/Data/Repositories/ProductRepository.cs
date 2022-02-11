@@ -1,6 +1,17 @@
-﻿namespace Infrastructure.Data;
+﻿using Core.Entities;
+using Core.Interfaces;
 
-public class ProductRepository
+namespace Infrastructure.Data.Repositories;
+
+public class ProductRepository : IProductRepository
 {
-    
+    public Task<Product> GetProductByIdAsync(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<IReadOnlyList<Product>> GetProductsAsync()
+    {
+        throw new NotImplementedException();
+    }
 }

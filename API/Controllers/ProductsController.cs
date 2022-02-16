@@ -19,7 +19,7 @@ public class ProductsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<Product>>> GetProducts()
+    public async Task<ActionResult<IReadOnlyList<Product>>> GetProducts()
     {
          IReadOnlyList<Product> products = await _repository.GetProductsAsync();
 

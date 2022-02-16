@@ -5,6 +5,10 @@ riderModule.iml
 /_ReSharper.Caches/
 appsettings.json
 
+# DB shm val
+*.db-shm
+*.db-wal
+
 # Common IntelliJ Platform excludes
 
 # User specific

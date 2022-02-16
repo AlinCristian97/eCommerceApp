@@ -33,4 +33,20 @@ public class ProductsController : ControllerBase
 
         return Ok(product);
     }
+
+    [HttpGet("brands")]
+    public async Task<ActionResult<IReadOnlyList<ProductBrand>>> GetProductBrands()
+    {
+        IReadOnlyList<ProductBrand> productBrands = await _repository.GetProductBrandsAsync();
+
+        return Ok(productBrands);
+    }
+
+    [HttpGet("types")]
+    public async Task<ActionResult<IReadOnlyList<ProductType>>> GetProductTypes()
+    {
+        IReadOnlyList<ProductType> productTypes = await _repository.GetProductTypesAsync();
+
+        return Ok(productTypes);
+    }
 }

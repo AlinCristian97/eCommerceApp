@@ -1,4 +1,5 @@
-﻿using Infrastructure.Data;
+﻿using API.Dtos;
+using Infrastructure.Data;
 using Core.Entities;
 using Core.Interfaces;
 using Core.Specifications;
@@ -27,23 +28,43 @@ public class ProductsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IReadOnlyList<Product>>> GetProducts()
+    public async Task<ActionResult<IReadOnlyList<ProductToReturnDto>>> GetProducts()
     {
         var specification = new ProductsWithTypesAndBrandsSpecification();
         
         IReadOnlyList<Product> products = await _productsRepo.ListEntitiesWithSpecification(specification);
-
-        return Ok(products);
+        
+        return products.Select(product => new ProductToReturnDto()
+        {
+            Id = product.Id,
+            Name = product.Name,
+            Description = product.Description,
+            PictureUrl = product.PictureUrl,
+            Price = product.Price,
+            ProductBrand = product.ProductBrand.Name,
+            ProductType = product.ProductType.Name
+        }).ToList();
     }
 
     [HttpGet("{id:int}")]
-    public async Task<ActionResult<Product>> GetProduct(int id)
+    public async Task<ActionResult<ProductToReturnDto>> GetProduct(int id)
     {
         var specification = new ProductsWithTypesAndBrandsSpecification(id);
         
         Product product = await _productsRepo.GetEntityWithSpecification(specification);
 
-        return Ok(product);
+        ProductToReturnDto productToReturnDto = new ProductToReturnDto()
+        {
+            Id = product.Id,
+            Name = product.Name,
+            Description = product.Description,
+            PictureUrl = product.PictureUrl,
+            Price = product.Price,
+            ProductBrand = product.ProductBrand.Name,
+            ProductType = product.ProductType.Name
+        };
+
+        return Ok(productToReturnDto);
     }
 
     [HttpGet("brands")]

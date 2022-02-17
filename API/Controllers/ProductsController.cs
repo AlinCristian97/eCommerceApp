@@ -39,7 +39,9 @@ public class ProductsController : ControllerBase
     [HttpGet("{id:int}")]
     public async Task<ActionResult<Product>> GetProduct(int id)
     {
-        Product product = await _productsRepo.GetByIdAsync(id);
+        var specification = new ProductsWithTypesAndBrandsSpecification(id);
+        
+        Product product = await _productsRepo.GetEntityWithSpecification(specification);
 
         return Ok(product);
     }

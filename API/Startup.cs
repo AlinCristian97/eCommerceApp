@@ -41,12 +41,9 @@ namespace API
                 o.UseSqlite(_configuration.GetConnectionString("DefaultConnection")));
 
             services.AddApplicationServices();
-            
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPIv5", Version = "v1" });
-            });
-            
+
+            services.AddSwaggerService();
+
             services.AddAutoMapper(typeof(MappingProfiles));
         }
 
@@ -55,9 +52,6 @@ namespace API
         {
             app.UseMiddleware<ExceptionMiddleware>();
             
-            app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPIv5 v1"));
-
             app.UseStatusCodePagesWithReExecute("/errors/{0}");
 
             app.UseHttpsRedirection();
@@ -67,6 +61,8 @@ namespace API
             app.UseStaticFiles();
 
             app.UseAuthorization();
+
+            app.UseSwaggerService();
 
             app.UseEndpoints(endpoints =>
             {

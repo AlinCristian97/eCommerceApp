@@ -3,21 +3,24 @@ using Core.Entities;
 
 namespace Core.Specifications;
 
-public class ProductsWithTypesAndBrandsSpecification : BaseSpecification<Product>
+public class ProductWithTypesAndBrandsSpecification : BaseSpecification<Product>
 {
-    public ProductsWithTypesAndBrandsSpecification(string sort, int? brandId, int? typeId)
+    public ProductWithTypesAndBrandsSpecification(ProductSpecificationParams specificationParams)
         : base(x => 
-                (!brandId.HasValue || x.ProductBrandId == brandId) &&
-                (!typeId.HasValue || x.ProductTypeId == typeId)
+                (!specificationParams.BrandId.HasValue || x.ProductBrandId == specificationParams.BrandId) &&
+                (!specificationParams.TypeId.HasValue || x.ProductTypeId == specificationParams.TypeId)
             )
     {
         AddInclude(p => p.ProductType);
         AddInclude(p => p.ProductBrand);
         AddOrderBy(x => x.Name);
+        ApplyPaging(
+            specificationParams.PageSize * (specificationParams.PageIndex - 1), 
+            specificationParams.PageSize);
 
-        if (!string.IsNullOrEmpty(sort))
+        if (!string.IsNullOrEmpty(specificationParams.Sort))
         {
-            switch (sort)
+            switch (specificationParams.Sort)
             {
                 case "priceAsc":
                     AddOrderBy(p => p.Price);
@@ -32,7 +35,7 @@ public class ProductsWithTypesAndBrandsSpecification : BaseSpecification<Product
         }
     }
     
-    public ProductsWithTypesAndBrandsSpecification(int id) 
+    public ProductWithTypesAndBrandsSpecification(int id) 
         : base(p => p.Id == id)
     {
         AddInclude(p => p.ProductType);

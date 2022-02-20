@@ -32,11 +32,9 @@ public class ProductsController : BaseApiController
 
     [HttpGet]
     public async Task<ActionResult<IReadOnlyList<ProductToReturnDto>>> GetProducts(
-        string sort,
-        int? brandId,
-        int? typeId)
+        ProductSpecificationParams specificationParams)
     {
-        var specification = new ProductsWithTypesAndBrandsSpecification(sort, brandId, typeId);
+        var specification = new ProductsWithTypesAndBrandsSpecification(specificationParams);
         
         IReadOnlyList<Product> products = await _productsRepo.ListEntitiesWithSpecification(specification);
         

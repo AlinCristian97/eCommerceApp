@@ -39,7 +39,11 @@ public class ProductsController : BaseApiController
 
         var countSpecification = new ProductWithFiltersForCountSpecification(specificationParams);
 
+<<<<<<< HEAD
         var totalItems = await _productsRepo.CountAsync(countSpecification);
+=======
+        var totalItems = await _productsRepo.CountAsync(specification);
+>>>>>>> api-pagination
         
         IReadOnlyList<Product> products = await _productsRepo.ListEntitiesWithSpecification(specification);
 

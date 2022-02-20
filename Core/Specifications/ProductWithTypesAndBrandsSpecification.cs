@@ -3,9 +3,9 @@ using Core.Entities;
 
 namespace Core.Specifications;
 
-public class ProductsWithTypesAndBrandsSpecification : BaseSpecification<Product>
+public class ProductWithTypesAndBrandsSpecification : BaseSpecification<Product>
 {
-    public ProductsWithTypesAndBrandsSpecification(ProductSpecificationParams specificationParams)
+    public ProductWithTypesAndBrandsSpecification(ProductSpecificationParams specificationParams)
         : base(x => 
                 (!specificationParams.BrandId.HasValue || x.ProductBrandId == specificationParams.BrandId) &&
                 (!specificationParams.TypeId.HasValue || x.ProductTypeId == specificationParams.TypeId)
@@ -35,7 +35,7 @@ public class ProductsWithTypesAndBrandsSpecification : BaseSpecification<Product
         }
     }
     
-    public ProductsWithTypesAndBrandsSpecification(int id) 
+    public ProductWithTypesAndBrandsSpecification(int id) 
         : base(p => p.Id == id)
     {
         AddInclude(p => p.ProductType);

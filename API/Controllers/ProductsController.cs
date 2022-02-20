@@ -34,7 +34,7 @@ public class ProductsController : BaseApiController
     public async Task<ActionResult<IReadOnlyList<ProductToReturnDto>>> GetProducts(
         [FromQuery] ProductSpecificationParams specificationParams)
     {
-        var specification = new ProductsWithTypesAndBrandsSpecification(specificationParams);
+        var specification = new ProductWithTypesAndBrandsSpecification(specificationParams);
         
         IReadOnlyList<Product> products = await _productsRepo.ListEntitiesWithSpecification(specification);
         
@@ -46,7 +46,7 @@ public class ProductsController : BaseApiController
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
     public async Task<ActionResult<ProductToReturnDto>> GetProduct(int id)
     {
-        var specification = new ProductsWithTypesAndBrandsSpecification(id);
+        var specification = new ProductWithTypesAndBrandsSpecification(id);
         
         Product product = await _productsRepo.GetEntityWithSpecification(specification);
 

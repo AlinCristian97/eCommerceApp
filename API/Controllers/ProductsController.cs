@@ -32,7 +32,7 @@ public class ProductsController : BaseApiController
 
     [HttpGet]
     public async Task<ActionResult<IReadOnlyList<ProductToReturnDto>>> GetProducts(
-        ProductSpecificationParams specificationParams)
+        [FromQuery] ProductSpecificationParams specificationParams)
     {
         var specification = new ProductsWithTypesAndBrandsSpecification(specificationParams);
         

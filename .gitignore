@@ -5,6 +5,9 @@ riderModule.iml
 /_ReSharper.Caches/
 appsettings.json
 
+# Angular client
+client
+
 # DB shm val
 *.db-shm
 *.db-wal
